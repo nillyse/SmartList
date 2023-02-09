@@ -1,0 +1,42 @@
+<h1>Utwórz nową kategorie!</h1>
+    <p>Po utworzeniu nowej kategorii będzie ją można przydzielić do produktu</p>
+
+
+<label for="">Nazwa kategorii:</label>
+<div>
+<input
+	[(ngModel)]="categoryName"
+	type="text"
+	class="form-control"
+/>
+<button class="btn btn-dark" (click)="createCategory()">Dodaj!</button>
+</div>
+
+<h1>Utworzone kategorie:</h1>
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col" sortable="name">Kategoria</th>
+			<th scope="col" sortable="area">Usuń</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let category of categoryList; let i = index">
+			<th scope="row">{{ i }}</th>
+			<td>{{ category.name }}</td>
+			<td>		
+				<button class="btn btn-danger" (click)="deleteCategory(category)">-</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+
+<ngb-alert class="category-alert fixed-bottom" *ngIf="alertMessage !==''" [type]="alertType" (closed)="close()">{{ alertMessage }}</ngb-alert>
+
+

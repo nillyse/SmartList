@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateCategoryComponent } from './create-category/create-category.component';
-import { CreateItemComponent } from './create-item/create-item.component';
-import { CreateListComponent } from './create-list/create-list.component';
-import { HomeComponent } from './home/home.component';
+import { CreateCategoryComponent } from '@components/create-category/create-category.component';
+import { CreateItemComponent } from '@components/create-item/create-item.component';
+import { CreateListComponent } from '@components/create-list/create-list.component';
+import { HomeComponent } from '@components/home/home.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

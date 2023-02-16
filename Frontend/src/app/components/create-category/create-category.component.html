@@ -15,25 +15,7 @@
 <h1>Utworzone kategorie:</h1>
 
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col" sortable="name">Kategoria</th>
-			<th scope="col" sortable="area">Usuń</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let category of categoryList; let i = index">
-			<th scope="row">{{ i }}</th>
-			<td>{{ category.name }}</td>
-			<td>		
-				<button class="btn btn-danger" (click)="deleteCategory(category)">-</button>
-			</td>
-		</tr>
-	</tbody>
-</table>
-
+<app-categories-with-products (categoryListEmitter)="getCategoriesFromComponent($event)"></app-categories-with-products>
 
 
 

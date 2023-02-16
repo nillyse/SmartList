@@ -22,5 +22,4 @@ export class CategoryService {
     return this.http.delete<Response<boolean>>(this.baseUrl+"/category", {params: { id: category.id}});
   }
 
-
 }

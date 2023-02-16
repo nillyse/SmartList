@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Category } from 'app/models/category';
 import { CategoryService } from 'app/services/category/category.service';
 import { Response } from 'app/models/response';
 import { delay, Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { SelectMultipleControlValueAccessor } from '@angular/forms';
+import { CategoriesWithProductsComponent } from '@components/shared/categories-with-products/categories-with-products.component';
 
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-category.component.html',
   styleUrls: ['./create-category.component.less']
 })
-export class CreateCategoryComponent implements OnInit, OnDestroy {
+export class CreateCategoryComponent implements OnDestroy {
   categoryName: string = '';
   categoryList: Array<Category> = [];
   alertType: string = '';
@@ -18,18 +19,16 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
+  @ViewChild(CategoriesWithProductsComponent) updateCategoryList!:CategoriesWithProductsComponent;
+
   constructor(private categoryService: CategoryService) {
   }
+
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe(); 
     }
-
-  ngOnInit() {
-    this.getCategories();
-  }
-
 
   createCategory() {
     var category: Category = { id: '', name: this.categoryName };
@@ -44,29 +43,15 @@ export class CreateCategoryComponent implements OnInit, OnDestroy {
           this.alertType = 'danger';
           this.alertMessage = response.messages[0];
         }
-        this.getCategories();
+        this.updateCategoryList.getCategories();
       });
   }
 
-  getCategories() {
-    this.categoryService.getCategories()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((response => {
-        this.categoryList = response.data;
-      }));
-  }
-
-  deleteCategory(category : Category) {
-    this.categoryService.deleteCategory(category)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((response => {
-      this.getCategories();
-    }));
-
+  getCategoriesFromComponent(event: any) {
+    this.categoryList = event
   }
 
   close() {
     this.alertMessage = ''
   }
-
 }

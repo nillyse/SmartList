@@ -7,16 +7,19 @@
     id="typeahead-category"
     type="text"
     class="form-control"
+    [(ngModel)]="categoryModel"
     [ngbTypeahead]="search"
+    [resultFormatter]="formatter"
+    [inputFormatter]="formatter"
+    [editable]="false"
 />
 
 <label for="">Nazwa przedmiotu:</label>
-<input
+<input [(ngModel)]="productName"
 	type="text"
 />
 
-<button>Utwórz</button>
-
+<button (click)="addProduct()">Utwórz</button>
 
 <!-- <h1>Utworzone kategorie:</h1>
 <ul>
@@ -25,3 +28,10 @@
 		<button (click)="deleteCategory(category)">-</button>
 	</li>
 </ul> -->
+
+
+<p>
+    Wiadomość z create-category: {{inputTest}}
+  </p>
+
+  <button (click)="changeInputValue()">Zmien input</button>

@@ -12,6 +12,8 @@ import { HeaderComponent } from '@components/header/header.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryService } from './services/category/category.service';
+import { ProductService } from './services/product/product.service';
+import { CategoriesWithProductsComponent } from './components/shared/categories-with-products/categories-with-products.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,8 @@ import { CategoryService } from './services/category/category.service';
     CreateListComponent,
     CreateCategoryComponent,
     CreateItemComponent,
-    HeaderComponent
+    HeaderComponent,
+    CategoriesWithProductsComponent
   ],
   imports: [ 
     BrowserModule,
@@ -30,7 +33,7 @@ import { CategoryService } from './services/category/category.service';
     NgbAlert,
     NgbToastModule
   ],
-  providers: [CategoryService],
+  providers: [CategoryService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

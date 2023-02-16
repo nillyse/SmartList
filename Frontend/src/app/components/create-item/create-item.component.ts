@@ -1,69 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from 'app/models/category';
+import { Product } from 'app/models/product';
 import { CategoryService } from 'app/services/category/category.service';
+import { ProductService } from 'app/services/product/product.service';
 import { OperatorFunction, Observable, debounceTime, distinctUntilChanged, map, Subject, takeUntil } from 'rxjs';
-
-const categories = [
-	'Alabama',
-	'Alaska',
-	'American Samoa',
-	'Arizona',
-	'Arkansas',
-	'California',
-	'Colorado',
-	'Connecticut',
-	'Delaware',
-	'District Of Columbia',
-	'Federated States Of Micronesia',
-	'Florida',
-	'Georgia',
-	'Guam',
-	'Hawaii',
-	'Idaho',
-	'Illinois',
-	'Indiana',
-	'Iowa',
-	'Kansas',
-	'Kentucky',
-	'Louisiana',
-	'Maine',
-	'Marshall Islands',
-	'Maryland',
-	'Massachusetts',
-	'Michigan',
-	'Minnesota',
-	'Mississippi',
-	'Missouri',
-	'Montana',
-	'Nebraska',
-	'Nevada',
-	'New Hampshire',
-	'New Jersey',
-	'New Mexico',
-	'New York',
-	'North Carolina',
-	'North Dakota',
-	'Northern Mariana Islands',
-	'Ohio',
-	'Oklahoma',
-	'Oregon',
-	'Palau',
-	'Pennsylvania',
-	'Puerto Rico',
-	'Rhode Island',
-	'South Carolina',
-	'South Dakota',
-	'Tennessee',
-	'Texas',
-	'Utah',
-	'Vermont',
-	'Virgin Islands',
-	'Virginia',
-	'Washington',
-	'West Virginia',
-	'Wisconsin',
-	'Wyoming',
-];
 
 
 @Component({
@@ -74,10 +14,14 @@ const categories = [
 export class CreateItemComponent {
 
 	destroy$: Subject<boolean> = new Subject<boolean>();
-	categoryList: Array<Category> = [];
+	@Output() categoryList: Array<Category> = [];
+	productName: string = "";
+	@Output() public categoryModel: any;
+
+	@Input() public inputTest: any;
 
 
-	constructor(private categoryService: CategoryService) {
+	constructor(private categoryService: CategoryService, private productService: ProductService) {
 	}
 
 	ngOnDestroy(): void {
@@ -90,21 +34,37 @@ export class CreateItemComponent {
 	  }
 	
 
-	search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
+	search: OperatorFunction<string, readonly Category[]> = (text$: Observable<string>) =>
 		text$.pipe(
 			debounceTime(200),
 			distinctUntilChanged(),
 			map((term) =>
-				term === '' ? [] : this.categoryList.map(c => c.name).filter((v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10),
+				term === '' ? [] : this.categoryList.filter((v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10),
 			),
 		);
-
+	
+		formatter = (x: { name: string }) => x.name;
+		
 	getCategories() {
 		this.categoryService.getCategories()
 			.pipe(takeUntil(this.destroy$))
 			.subscribe((response => {
 				this.categoryList = response.data;
 			}));
+	}
+
+	addProduct() {
+		console.log(this.categoryModel)
+		var product: Product = {id: "", name: this.productName, categoryId: this.categoryModel.id}
+		this.productService.addProduct(product)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((response => {
+			}));
+
+	}
+
+	changeInputValue() {
+		this.inputTest = "nowa wartosc"
 	}
 
 }

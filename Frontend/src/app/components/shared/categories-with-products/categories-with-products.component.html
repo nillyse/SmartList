@@ -3,16 +3,23 @@
 		<tr>
 			<th scope="col">#</th>
 			<th scope="col" sortable="name">Kategoria</th>
-			<th scope="col" sortable="area">Usuń</th>
+			<th scope="col" sortable="area">Akcje</th>
 		</tr>
 	</thead>
-	<tbody>
-		<tr *ngFor="let category of categoryList; let i = index">
+	<tbody [ngClass]="['category']" *ngFor="let category of categoriesWithProductsList; let i = index" appToogleClass="hidden">
+		<tr>
 			<th scope="row">{{ i }}</th>
 			<td>{{ category.name }}</td>
 			<td>		
 				<button class="btn btn-danger" (click)="deleteCategory(category)">-</button>
-			</td>
+				<button class="btn">strzałka w dół</button>
+			</td>			
+		</tr>
+		<tr class="products" *ngFor="let product of category.products; let i = index">
+			<th scope="row">{{ i }}</th>
+			<td>{{ product.name }}</td>
+	
 		</tr>
 	</tbody>
+
 </table>

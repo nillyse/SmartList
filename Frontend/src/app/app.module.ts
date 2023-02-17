@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoryService } from './services/category/category.service';
 import { ProductService } from './services/product/product.service';
 import { CategoriesWithProductsComponent } from './components/shared/categories-with-products/categories-with-products.component';
+import { ToogleClassDirective } from './directives/toogle-class.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { CategoriesWithProductsComponent } from './components/shared/categories-
     CreateCategoryComponent,
     CreateItemComponent,
     HeaderComponent,
-    CategoriesWithProductsComponent
+    CategoriesWithProductsComponent,
+    ToogleClassDirective
   ],
   imports: [ 
     BrowserModule,

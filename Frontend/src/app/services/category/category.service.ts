@@ -14,6 +14,10 @@ export class CategoryService {
     return this.http.get<Response<Array<Category>>>(this.baseUrl+"/categories");
   }
 
+  getCategoriesWithProducts() {
+    return this.http.get<Response<Array<Category>>>(this.baseUrl+"/categoriesWithProducts");
+  }
+
   addCategory(category: Category) {
     return this.http.post<Response<string>>(this.baseUrl+"/category", category);
   }

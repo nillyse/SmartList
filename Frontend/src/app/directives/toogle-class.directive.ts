@@ -9,7 +9,8 @@ export class ToogleClassDirective {
   constructor() { }
 
   @HostListener('click', ['$event.target'])
-  onClick() {
-    this.hidden=!this.hidden;
+  onClick(target: any) {
+    if(target.classList.toString().indexOf("expand") > 0)
+      this.hidden=!this.hidden;
   }
 }

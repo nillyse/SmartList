@@ -11,15 +11,49 @@
 			<th scope="row">{{ i }}</th>
 			<td>{{ category.name }}</td>
 			<td>		
-				<button class="btn btn-danger" (click)="deleteCategory(category)">-</button>
-				<button class="btn">strzałka w dół</button>
-			</td>			
+				<button class="btn btn-danger" (click)="open(content, deleteCategory, category, 'kategorie')">-</button>
+				<button class="btn expand">strzałka w dół</button>
+			</td>
 		</tr>
-		<tr class="products" *ngFor="let product of category.products; let i = index">
+		<table *ngIf="category.products.length > 0" class="table table-striped products products-table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col" sortable="name">Produkt</th>
+					<th scope="col" sortable="area">Akcje</th>
+				</tr>
+			</thead>
+			<tbody>
+		<tr *ngFor="let product of category.products; let i = index">
 			<th scope="row">{{ i }}</th>
 			<td>{{ product.name }}</td>
+			<button class="btn btn-danger" (click)="open(content, deleteProduct, product, 'produkt')">-</button>
 	
 		</tr>
 	</tbody>
+</table>
+
+	</tbody>
 
 </table>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Czy na pewno chcesz usunąć {{typeToDelete}} "{{nameToDelete}}"?</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+			</div>
+		</form>
+	</div>
+	<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> Nie pokazuj ponownie
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Tak')">Tak</button>
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Nie')">Nie</button>
+	</div>
+</ng-template>
+
+
+<hr />

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { CategoriesWithProductsComponent } from '@components/shared/categories-with-products/categories-with-products.component';
 import { Category } from 'app/models/category';
 import { Product } from 'app/models/product';
 import { CategoryService } from 'app/services/category/category.service';
@@ -14,12 +15,13 @@ import { OperatorFunction, Observable, debounceTime, distinctUntilChanged, map, 
 export class CreateItemComponent {
 
 	destroy$: Subject<boolean> = new Subject<boolean>();
-	@Output() categoryList: Array<Category> = [];
+	categoryList: Array<Category> = [];
 	productName: string = "";
-	@Output() public categoryModel: any;
+	categoryModel: any;
 
-	@Input() public inputTest: any;
+	formatter = (x: { name: string }) => x.name;
 
+	@ViewChild(CategoriesWithProductsComponent) updateCategoryList!:CategoriesWithProductsComponent;
 
 	constructor(private categoryService: CategoryService, private productService: ProductService) {
 	}
@@ -43,7 +45,6 @@ export class CreateItemComponent {
 			),
 		);
 	
-		formatter = (x: { name: string }) => x.name;
 		
 	getCategories() {
 		this.categoryService.getCategories()
@@ -54,17 +55,13 @@ export class CreateItemComponent {
 	}
 
 	addProduct() {
-		console.log(this.categoryModel)
 		var product: Product = {id: "", name: this.productName, categoryId: this.categoryModel.id}
 		this.productService.addProduct(product)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe((response => {
+				this.updateCategoryList.getCategoriesWithProducts();
 			}));
 
-	}
-
-	changeInputValue() {
-		this.inputTest = "nowa wartosc"
 	}
 
 }

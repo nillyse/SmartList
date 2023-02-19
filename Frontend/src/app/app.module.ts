@@ -15,6 +15,7 @@ import { CategoryService } from './services/category/category.service';
 import { ProductService } from './services/product/product.service';
 import { CategoriesWithProductsComponent } from './components/shared/categories-with-products/categories-with-products.component';
 import { ToogleClassDirective } from './directives/toogle-class.directive';
+import { ShoppingListService } from './services/shopping-list/shopping-list.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,7 @@ import { ToogleClassDirective } from './directives/toogle-class.directive';
     NgbAlert,
     NgbToastModule
   ],
-  providers: [CategoryService, ProductService],
+  providers: [CategoryService, ProductService, ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

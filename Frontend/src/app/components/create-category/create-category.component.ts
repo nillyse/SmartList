@@ -30,6 +30,14 @@ export class CreateCategoryComponent implements OnDestroy {
     this.destroy$.unsubscribe(); 
     }
 
+  getCategories() {
+    this.categoryService.getCategories()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response => {
+        this.categoryList = response.data;
+      }));
+  }
+  
   createCategory() {
     var category: Category = { id: '', name: this.categoryName };
     this.categoryService.addCategory(category)
@@ -43,12 +51,8 @@ export class CreateCategoryComponent implements OnDestroy {
           this.alertType = 'danger';
           this.alertMessage = response.messages[0];
         }
-        this.updateCategoryList.getCategories();
+        this.updateCategoryList.getCategoriesWithProducts();
       });
-  }
-
-  getCategoriesFromComponent(event: any) {
-    this.categoryList = event
   }
 
   close() {

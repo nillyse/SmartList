@@ -14,6 +14,10 @@ export class CategoryService {
     return this.http.get<Response<Array<Category>>>(this.baseUrl+"/categories");
   }
 
+  getCategory(categoryId: string) {
+    return this.http.get<Response<Category>>(`${this.baseUrl}/categories/${categoryId}`);
+  }
+
   getCategoriesWithProducts() {
     return this.http.get<Response<Array<Category>>>(this.baseUrl+"/categoriesWithProducts");
   }
@@ -22,8 +26,8 @@ export class CategoryService {
     return this.http.post<Response<string>>(this.baseUrl+"/category", category);
   }
 
-  deleteCategory(category: Category) {
-    return this.http.delete<Response<boolean>>(this.baseUrl+"/category", {params: { id: category.id}});
+  deleteCategory(categoryId: string) {
+    return this.http.delete<Response<boolean>>(this.baseUrl+"/category", {params: { id: categoryId}});
   }
 
 }

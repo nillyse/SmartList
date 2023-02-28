@@ -58,7 +58,7 @@ export class CategoriesWithProductsComponent implements OnInit {
   }
 
   deleteCategory(category : Category) {
-    this.categoryService.deleteCategory(category)
+    this.categoryService.deleteCategory(category.id)
     .pipe(takeUntil(this.destroy$))
     .subscribe((response => {
       this.getCategoriesWithProducts();
@@ -66,7 +66,7 @@ export class CategoriesWithProductsComponent implements OnInit {
   }
 
   deleteProduct(product: Product) {
-    this.productService.deleteProduct(product)
+    this.productService.deleteProduct(product.id)
     .pipe(takeUntil(this.destroy$))
     .subscribe((response => {
       this.getCategoriesWithProducts();
@@ -78,6 +78,7 @@ export class CategoriesWithProductsComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe((response => {
       this.categoriesWithProductsList = response.data;
+      console.log(this.categoriesWithProductsList)
     }));
 
   }

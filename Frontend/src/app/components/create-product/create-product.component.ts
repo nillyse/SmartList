@@ -8,11 +8,11 @@ import { OperatorFunction, Observable, debounceTime, distinctUntilChanged, map, 
 
 
 @Component({
-	selector: 'app-create-item',
-	templateUrl: './create-item.component.html',
-	styleUrls: ['./create-item.component.less']
+	selector: 'app-create-product',
+	templateUrl: './create-product.component.html',
+	styleUrls: ['./create-product.component.less']
 })
-export class CreateItemComponent {
+export class CreateProductComponent {
 
 	destroy$: Subject<boolean> = new Subject<boolean>();
 	categoryList: Array<Category> = [];

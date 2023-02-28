@@ -1,0 +1,16 @@
+<input
+    id="typeahead-item"
+    type="text"
+    class="form-control"
+    [(ngModel)]="productModel"
+    [ngbTypeahead]="search"
+    [resultFormatter]="formatter"
+    [inputFormatter]="formatter"
+    [editable]="false"
+    (selectItem)="onProductSelected($event)"
+/>
+<input disabled type="text" [value]="categoryName">
+
+<button (click)="addItem()">Utwórz</button>
+
+    

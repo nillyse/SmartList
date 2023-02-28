@@ -23,8 +23,8 @@ export class ProductService {
     return this.http.post<Response<string>>(this.baseUrl+"/product", product);
   }
 
-  deleteProduct(product: Product) {
-    return this.http.delete<Response<boolean>>(this.baseUrl+"/product", {params: { id: product.id}});
+  deleteProduct(productId: string) {
+    return this.http.delete<Response<boolean>>(this.baseUrl+"/product", {params: { id: productId}});
   }
 
 

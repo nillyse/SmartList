@@ -1,7 +1,22 @@
 <h1>Utwórz listę!</h1>
 
 
-<p>Dodaj {{shoppingList.size == 0 ? "pierwszy" : "kolejny"}} produkt</p>
+<div *ngIf="shoppingListId=='' else createdList">
+<h3>Tytuł:</h3>
+<label for="create-shopping-list">
+<input [(ngModel)]="shoppingListTitle" type="text">
+</label>
+<button (click)="createShoppingList()">Utwórz</button>
+</div>
+
+<ng-template #createdList>
+	<app-create-item [shoppingListId]="shoppingListId"></app-create-item>
+	<div *ngFor=""></div>
+	<app-shopping-items-from-category-tile></app-shopping-items-from-category-tile>
+</ng-template>
+
+
+<!-- <p>Dodaj {{shoppingList.size == 0 ? "pierwszy" : "kolejny"}} produkt</p>
 
 <label *ngIf="" for="typeahead-format"></label>
 <input [(ngModel)]="model" id="typeahead-format" type="text" class="form-control" [ngbTypeahead]="search"
@@ -19,4 +34,4 @@
 		<button (click)="deleteItem(item.key)">-</button>
 	</li>
 </ul>
-<button>Utwórz</button>
+<button>Utwórz</button> -->

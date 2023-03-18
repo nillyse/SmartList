@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from '@components/home/home.component';
@@ -18,6 +17,23 @@ import { ToogleClassDirective } from './directives/toogle-class.directive';
 import { ShoppingListService } from './services/shopping-list/shopping-list.service';
 import { ShoppingItemsFromCategoryTileComponent } from './components/create-list/shopping-items-from-category-tile/shopping-items-from-category-tile.component';
 import { CreateItemComponent } from '@components/create-list/create-item/create-item.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule } from "@angular/material/expansion";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import {MatSelectModule} from '@angular/material/select'; 
+import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort'; 
+import {MatToolbarModule} from '@angular/material/toolbar'; 
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { ShoppingListTileGroupComponent } from './components/shopping-list-tile-group/shopping-list-tile-group.component';
+import { ShoppingListTileComponent } from './components/shopping-list-tile-group/shopping-list-tile/shopping-list-tile.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,16 +45,34 @@ import { CreateItemComponent } from '@components/create-list/create-item/create-
     CategoriesWithProductsComponent,
     ToogleClassDirective,
     ShoppingItemsFromCategoryTileComponent,
-    CreateItemComponent
+    CreateItemComponent,
+    ShoppingListTileGroupComponent,
+    ShoppingListTileComponent
   ],
   imports: [ 
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
     NgbAlert,
-    NgbToastModule
+    NgbToastModule,
+    BrowserAnimationsModule,
+    MatExpansionModule, 
+    DragDropModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    FontAwesomeModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatGridListModule
   ],
   providers: [CategoryService, ProductService, ShoppingListService],
   bootstrap: [AppComponent]

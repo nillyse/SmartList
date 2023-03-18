@@ -1,9 +1,17 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShoppingList } from 'app/models/shoppingList';
 import { ShoppingListService } from 'app/services/shopping-list/shopping-list.service';
-import { debounceTime, distinctUntilChanged, filter, map, Observable, OperatorFunction, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
+
+export interface DragDropListItem {
+	id: string;
+	title: string;
+	description: string;
+  }
+  
 @Component({
 	selector: 'app-create-list',
 	templateUrl: './create-list.component.html',
@@ -16,6 +24,42 @@ export class CreateListComponent implements AfterViewInit, OnInit {
 	shoppingListId: string = '';
 	shoppingListForView!: any;
 
+	unassignedTasks: DragDropListItem[] = [
+		{
+		  id: '1',
+		  title: 'Task 1',
+		  description: 'This is description of tasks 1'
+		},
+		{
+		  id: '2',
+		  title: 'Task 2',
+		  description: 'This is description of tasks 2'
+		},
+		{
+		  id: '3',
+		  title: 'Task 3',
+		  description: 'This is description of tasks 3'
+		}
+	  ];
+	
+	  assignedTasks = [
+		{
+		  id: '4',
+		  title: 'Task 4',
+		  description: 'This is description of tasks 4'
+		},
+		{
+		  id: '5',
+		  title: 'Task 5',
+		  description: 'This is description of tasks 5'
+		},
+		{
+		  id: '6',
+		  title: 'Task 6',
+		  description: 'This is description of tasks 6'
+		}
+	  ];
+	
 	constructor(private shoppingListService: ShoppingListService, private route: ActivatedRoute) {
 
 	}
@@ -74,5 +118,17 @@ export class CreateListComponent implements AfterViewInit, OnInit {
 	// 	var newProductCount = parseInt(event.target.value);
 	// 	this.shoppingList.set(item, newProductCount);
 	// }
+	drop(event: CdkDragDrop<DragDropListItem[]>) {
+		if (event.previousContainer === event.container) {
+		  moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+		} else {
+		  transferArrayItem(event.previousContainer.data,
+							event.container.data,
+							event.previousIndex,
+							event.currentIndex);
+		}
+	  }
+	
 
 }
+

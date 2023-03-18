@@ -2,18 +2,47 @@
 
 
 <div *ngIf="shoppingListId=='' else createdList">
-<h3>Tytuł:</h3>
-<label for="create-shopping-list">
-<input [(ngModel)]="shoppingListTitle" type="text">
-</label>
-<button (click)="createShoppingList()">Utwórz</button>
+	<h3>Tytuł:</h3>
+	<label for="create-shopping-list">
+		<input [(ngModel)]="shoppingListTitle" type="text">
+	</label>
+	<button (click)="createShoppingList()">Utwórz</button>
 </div>
 
 <ng-template #createdList>
 	<app-create-item [shoppingListId]="shoppingListId"></app-create-item>
-	<div *ngFor=""></div>
-	<app-shopping-items-from-category-tile></app-shopping-items-from-category-tile>
+	<mat-accordion cdkDropList #assignedList="cdkDropList" [cdkDropListData]="assignedTasks">
+		<mat-expansion-panel *ngFor="let shoppingView of shoppingListForView" cdkDrag>
+			<mat-expansion-panel-header>
+				{{shoppingView.categoryName}}
+			</mat-expansion-panel-header>
+			<ng-template matExpansionPanelContent>
+				<app-shopping-items-from-category-tile [shoppingListFromCategory]="shoppingView.items"></app-shopping-items-from-category-tile>
+			  </ng-template>
+		</mat-expansion-panel>
+		<!-- <mat-expansion-panel
+		cdkDrag
+		*ngFor="let task of unassignedTasks"
+		>
+				  <mat-expansion-panel-header>
+					  <mat-panel-title>
+						  {{ task.title }}
+					  </mat-panel-title>
+					  <mat-panel-description>
+						  {{ task.description }}
+					  </mat-panel-description>
+				  </mat-expansion-panel-header>
+				  <p>This is the primary content of the panel.</p>
+			  </mat-expansion-panel> -->
+
+	</mat-accordion>
+
 </ng-template>
+
+
+
+
+
 
 
 <!-- <p>Dodaj {{shoppingList.size == 0 ? "pierwszy" : "kolejny"}} produkt</p>

@@ -12,8 +12,8 @@ export class AppComponent  {
 
   constructor(private router: Router)  {
     router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd)
-        this.isHome = this.router.url !== '/';
+      // if (val instanceof NavigationEnd)
+      //   this.isHome = this.router.url !== '/';
   });
   }
 

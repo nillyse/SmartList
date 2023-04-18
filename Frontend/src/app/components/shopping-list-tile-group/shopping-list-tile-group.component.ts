@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./shopping-list-tile-group.component.less']
 })
 export class ShoppingListTileGroupComponent {
-
+  columnsCount: number = 3;
 }

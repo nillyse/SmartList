@@ -8,7 +8,7 @@ import { CreateListComponent } from '@components/create-list/create-list.compone
 import { CreateCategoryComponent } from '@components/create-category/create-category.component';
 import { CreateProductComponent } from '@components/create-product/create-product.component';
 import { HeaderComponent } from '@components/header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryService } from './services/category/category.service';
 import { ProductService } from './services/product/product.service';
@@ -33,7 +33,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ShoppingListTileGroupComponent } from './components/shopping-list-tile-group/shopping-list-tile-group.component';
-import { ShoppingListTileComponent } from './components/shopping-list-tile-group/shopping-list-tile/shopping-list-tile.component'; 
+import { ShoppingListTileComponent } from './components/shopping-list-tile-group/shopping-list-tile/shopping-list-tile.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatCardModule} from '@angular/material/card'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,10 @@ import { ShoppingListTileComponent } from './components/shopping-list-tile-group
     FontAwesomeModule,
     MatFormFieldModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatCardModule,
   ],
   providers: [CategoryService, ProductService, ShoppingListService],
   bootstrap: [AppComponent]

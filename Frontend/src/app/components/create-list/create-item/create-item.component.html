@@ -1,17 +1,30 @@
-<input
-    id="typeahead-item"
-    type="text"
-    class="form-control"
-    [(ngModel)]="productModel"
-    [ngbTypeahead]="search"
-    [resultFormatter]="formatter"
-    [inputFormatter]="formatter"
-    [editable]="false"
-    (selectItem)="onProductSelected($event)"
-/>
-<input matInput disabled type="text" [value]="categoryName">
-<input matInput type="number" [value]="1" min="1">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Add new item to the list!</mat-card-title>
+    <mat-card-subtitle *ngIf="categoryName != ''">You have chosen product from {{categoryName}} category</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
 
-<button (click)="addItem()">Utwórz</button>
-
-    
+  <form [formGroup]="productForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Products</mat-label>
+      <input type="text" matInput formControlName="productGroup" [matAutocomplete]="autoGroup">
+      <mat-autocomplete #autoGroup="matAutocomplete">
+        <mat-optgroup *ngFor="let group of productGroupOptions | async" [label]="group.name" >
+          <mat-option *ngFor="let product of convert(group.products)" [value]="product.name"
+            (onSelectionChange)="onProductSelected(product)">
+            {{product.name}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" [value]="1" min="1" formControlName="amount">
+    </mat-form-field>
+    <button mat-mini-fab color="primary" (click)="addItem()">
+      +
+    </button>
+  </form>
+</mat-card-content>
+</mat-card>

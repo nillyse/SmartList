@@ -39,7 +39,7 @@ export class CreateCategoryComponent implements OnDestroy {
   }
   
   createCategory() {
-    var category: Category = { id: '', name: this.categoryName };
+    var category: Category = { id: '', name: this.categoryName, products: [] };
     this.categoryService.addCategory(category)
       .pipe(takeUntil(this.destroy$))
       .subscribe(response => {

@@ -11,6 +11,7 @@ export class ProductService {
 
   baseUrl = 'https://localhost:7185';
 
+  
   getProducts() {
     return this.http.get<Response<Array<Product>>>(this.baseUrl+"/products");
   }

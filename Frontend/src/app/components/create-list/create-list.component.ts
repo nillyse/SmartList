@@ -86,6 +86,7 @@ export class CreateListComponent implements AfterViewInit, OnInit {
 		this.shoppingListService.GetShoppingListsForView(this.shoppingListId)
 			.pipe(takeUntil(this.destroy$))
 			.subscribe((response => {
+				console.log(response)
 				if (response.data) {
 					this.savePreviousOrder();
 					this.shoppingListForView = response.data;

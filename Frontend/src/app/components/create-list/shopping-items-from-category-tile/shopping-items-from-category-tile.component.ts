@@ -41,7 +41,7 @@ export class ShoppingItemsFromCategoryTileComponent{
       updatedItem.amount = Number(change.data);
     }
     else if (type == 'isBought') {
-      updatedItem.IsBought = change.checked;
+      updatedItem.isBought = change.checked;
     }
     console.log(updatedItem)
 		this.shoppingListService.UpdateItem(updatedItem)

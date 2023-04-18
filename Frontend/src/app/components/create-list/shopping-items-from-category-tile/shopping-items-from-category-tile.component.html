@@ -1,7 +1,7 @@
 
 
 <div *ngFor="let item of shoppingListFromCategory">
-<mat-checkbox (change)="updateItem(item,'isBought', $event)">{{item.productName}}</mat-checkbox>
+<mat-checkbox [checked]="item.isBought" (change)="updateItem(item,'isBought', $event)">{{item.productName}}</mat-checkbox>
 <mat-form-field class="example-full-width">
     <input matInput type="number" [value]="item.amount" min="1" (input)="updateItem(item, 'amount', $event)">
   </mat-form-field>

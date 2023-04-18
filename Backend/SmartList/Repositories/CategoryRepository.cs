@@ -1,18 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using SmartList.Models;
+using SmartList.Models.Request;
 using SmartList.Repositories.Contexts;
+using SmartList.Repositories.Interfaces;
 using SmartList.Utilities;
-using System.Reflection.Metadata;
 
 namespace SmartList.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly SmartListContext _context;
-        public CategoryRepository()
+        public CategoryRepository(SmartListContext context)
         {
-            _context = new SmartListContext();
+            _context = context;
         }
 
         public Response<Guid> Create(CreateCategoryRequest categoryRequest)
@@ -26,8 +28,12 @@ namespace SmartList.Repositories
             }
             catch (DbUpdateException e)
             {
-                if (e.InnerException is PostgresException)
+                if (e.InnerException is PostgresException postgresException)
                 {
+                    if (postgresException.SqlState == PostgresErrorCodes.UniqueViolation)
+                    {
+                        return Response<Guid>.Failed("Duplicate name");
+                    }
                     return Response<Guid>.Failed("Failed to create category");
                 }
             }
@@ -39,6 +45,21 @@ namespace SmartList.Repositories
             var categories = _context.Categories.AsNoTracking().ToList();
             return Response<List<Category>>.Succeeded(categories);
         }
+
+        public Response<Category> Get(Guid id)
+        {
+            var category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            return Response<Category>.Succeeded(category);
+        }
+
+        public Response<List<Category>> GetAllWithProducts()
+        {
+            var categories = _context.Categories
+                .Include(p => p.Products)
+                .AsNoTracking().ToList();
+            return Response<List<Category>>.Succeeded(categories);
+        }
+
 
         public Response<bool> Delete(Guid id)
         {

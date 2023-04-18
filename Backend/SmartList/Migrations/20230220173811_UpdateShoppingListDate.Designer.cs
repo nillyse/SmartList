@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartList.Repositories.Contexts;
@@ -11,9 +12,11 @@ using SmartList.Repositories.Contexts;
 namespace SmartList.Migrations
 {
     [DbContext(typeof(SmartListContext))]
-    partial class SmartListContextModelSnapshot : ModelSnapshot
+    [Migration("20230220173811_UpdateShoppingListDate")]
+    partial class UpdateShoppingListDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
